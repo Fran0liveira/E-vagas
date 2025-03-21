@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	 <head th:replace="../components/headTag::headTag">
+	</head>
+  <body>
+
+		<nav th:replace="../components/navBar::navBar"></nav>
+        <div class="container-fluid m-5">
+			
+			
+			<form class="w-50" 
+			role="form"
+			method="post"
+			th:action="@{/vagas/publicar}"
+			th:object="${vaga}">
+			
+				<h3>Dados da Vaga</h3>
+			  <div class="form-group mt-3">
+			    <label for="descricaoVaga">Descrição da Vaga</label>
+			    <input type="text" class="form-control" id="descricaoVaga" placeholder="Ex: Desenvolvedor Java Pleno"
+				th:field="*{descricao}">
+			  </div>
+			  <div class="form-group mt-3">
+  			    <label for="detalhesVaga">Detalhes da Vaga</label>
+  			    <input type="text" class="form-control" id="detalhesVaga" placeholder="Ex: Mínimo 2 anos de experiência..."
+				th:field="*{detalhes}">
+  			  </div>
+			  
+			  <div class="form-group mt-3">
+			    <label for="empresaVaga">Empresa da Vaga</label>
+			    <input type="text" class="form-control" id="empresaVaga" placeholder="Ex: Minha Empresa..."
+				th:field="*{empresa}">
+			  </div>
+			  <button type="submit" class="btn btn-primary mt-4">Publicar Vaga</button>
+			</form>
+			
+			
+		</div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
