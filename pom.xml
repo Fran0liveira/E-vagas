@@ -112,9 +112,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>evagas
-			
-		</finalName>
+		<finalName>evagas</finalName>
 	</build>
 
 </project>
