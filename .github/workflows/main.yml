@@ -17,10 +17,7 @@ jobs:
           java-version: '17'
 
       - name: Build Project
-        run: mvn clean package -DskipTests
-
-      - name: List files in target directory
-        run: ls -al target
+        run: mvn clean install -DskipTests
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
