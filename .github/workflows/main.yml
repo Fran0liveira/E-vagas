@@ -28,7 +28,7 @@ jobs:
           environment_name: Evagas-env
           version_label: ${{ github.SHA }}
           region: us-east-1
-          deployment-package: evagas-0.0.1-SNAPSHOT.jar
+          deployment_package: evagas-0.0.1-SNAPSHOT.jar
 
      
     
