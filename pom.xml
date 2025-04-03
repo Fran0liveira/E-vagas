@@ -11,7 +11,7 @@
 	<groupId>com.ksoft</groupId>
 	<artifactId>evagas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>evagas</name>
 	<description>Projeto de contratações</description>
 	<url/>
@@ -112,6 +112,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>evagas</finalName>
 	</build>
 
 </project>
