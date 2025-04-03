@@ -19,19 +19,6 @@ jobs:
       - name: Build Project
         run: mvn clean package -DskipTests
 
-      - name: Upload JAR
-        uses: actions/upload-artifact@v4.6.2
-        
-  deploy:
-    needs: build
-    name: deploy
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Download JAR
-        uses: actions/download-artifact@v4.2.1
-        with: 
-          name: artifact
-
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with: 
@@ -42,4 +29,6 @@ jobs:
           version_label: ${{ github.SHA }}
           region: us-east-1
           deployment-package: evagas-0.0.1-SNAPSHOT.jar
+
+     
     
