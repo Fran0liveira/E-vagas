@@ -1,4 +1,4 @@
-name: Deploy to Beanstalk
+name: Deploy Beanstalk
 on: 
   push:
     branches:
