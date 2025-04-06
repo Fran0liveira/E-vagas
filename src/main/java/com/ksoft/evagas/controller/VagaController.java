@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.ksoft.evagas.domain.Vaga;
@@ -33,11 +34,18 @@ public class VagaController {
 	}
 	
 	@PostMapping("publicar")
-	public String publicarVaga(Model model, @ModelAttribute("vaga") Vaga vaga) 
+	public String publicarVaga(RedirectAttributes mv, @ModelAttribute("vaga") Vaga vaga) 
 	{
-		System.out.println("Publicando vaga..." + new Gson().toJson(vaga));
+		boolean status = vagaService.salvarVaga(vaga);
+		System.out.println("SUCESSO: " +status);
+		if(status) {
+			mv.addFlashAttribute("msgVaga", "Vaga " +vaga.getDescricao() + " criada com sucesso!");
+			mv.addFlashAttribute("statusVaga", "SUCCESS");
+		}else {
+			mv.addFlashAttribute("msgVaga", "Erro ao criar vaga " +vaga.getDescricao() + "!");
+			mv.addFlashAttribute("statusVaga", "ERROR");
+		}
 		
-		model.addAttribute("vaga", vaga);
 		return "redirect:/vagas";
 	}
 	

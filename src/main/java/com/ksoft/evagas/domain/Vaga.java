@@ -16,7 +16,7 @@ public class Vaga implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	private Long id;
 	private String descricao;
 	private String detalhes;
 	private String empresa;
