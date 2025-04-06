@@ -16,4 +16,5 @@ public class ApiConfig {
 	private String baseUrl;
 	private String obterVagas;
 	private String publicarVaga;
+	private String obterUsuario;
 }
