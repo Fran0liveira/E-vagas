@@ -21,11 +21,16 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.csrf(csrf -> csrf.disable())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				/*
+				 * .sessionManagement(session ->
+				 * session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				 */
 				.authorizeHttpRequests(auth-> 
 					auth
-					.requestMatchers("/vagas/form").hasRole(UserRole.ADMIN.getRole())
-					.requestMatchers("/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
+						/*
+						 * .requestMatchers("/vagas/form").hasRole(UserRole.ADMIN.getRole())
+						 * .requestMatchers("/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
+						 */
 					.anyRequest()
 					.permitAll()
 				)
