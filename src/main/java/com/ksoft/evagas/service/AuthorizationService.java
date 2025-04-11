@@ -1,6 +1,9 @@
 package com.ksoft.evagas.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,8 +18,21 @@ public class AuthorizationService implements UserDetailsService {
 	private UserService userService;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userService.getUserByUsername(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Optional<Usuario> optUsuario = userService.getUserByEmail(email);
+		
+		if(optUsuario.isEmpty()) {
+			return null;
+		}
+		Usuario usuario = optUsuario.get();
+		
+		UserDetails userDetails = 
+				User.withUsername(usuario.getEmail())
+				.password(usuario.getPassword())
+				.roles(usuario.getRole().getRole())
+				.build();
+		
+		return userDetails;
 	}
 
 }

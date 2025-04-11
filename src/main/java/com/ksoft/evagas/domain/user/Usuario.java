@@ -15,7 +15,7 @@ public class Usuario implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String login;
+	private String email;
 	private String senha;
 	private UserRole role;
 	
@@ -32,12 +32,11 @@ public class Usuario implements UserDetails {
 	}
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return senha;
 	}
 	@Override
 	public String getUsername() {
-		return login;
+		return email;
 	}
 
 }

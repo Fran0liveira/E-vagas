@@ -1,5 +1,7 @@
 package com.ksoft.evagas.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -14,17 +16,21 @@ public class UserService {
 	@Autowired
 	private ApiConfig apiConfig;
 	
-	public UserDetails getUserByUsername(String username)
+	public Optional<Usuario> getUserByEmail(String email)
 	{
-		return RestClient
+		Usuario usuario = RestClient
 		.create(apiConfig.getBaseUrl())
 		.get()
-		.uri(apiConfig.getObterUsuario())
+		.uri(uri-> 
+				uri
+				.path(apiConfig.getObterUsuario())
+				.queryParam("email", email)
+				.build()
+		)
 		.retrieve()
-		.body(UserDetails.class);
+		.body(Usuario.class);
 		
-		
-		
+		return Optional.ofNullable(usuario);
 	}
 	
 	

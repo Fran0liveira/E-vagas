@@ -1,10 +1,13 @@
 package com.ksoft.evagas.config.security;
 
+import javax.management.relation.Role;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,21 +23,30 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
+				.formLogin(lp-> 
+						lp
+						.loginPage("/login.html")
+						.defaultSuccessUrl("/")
+						.failureUrl("/login-error.html"))
+						.logout(lg-> lg.logoutSuccessUrl("/index.html")
+					)
+				
 				.csrf(csrf -> csrf.disable())
-				/*
-				 * .sessionManagement(session ->
-				 * session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				 */
 				.authorizeHttpRequests(auth-> 
 					auth
-						/*
-						 * .requestMatchers("/vagas/form").hasRole(UserRole.ADMIN.getRole())
-						 * .requestMatchers("/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
-						 */
+					.requestMatchers("/assets/**").permitAll()
+					.requestMatchers("/", "/login/**").permitAll()
+					.requestMatchers("/vagas/**").permitAll()
+					.requestMatchers("/vagas/form", "/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
 					.anyRequest()
-					.permitAll()
+					.authenticated()
 				)
 				.build();
+	}
+	
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
