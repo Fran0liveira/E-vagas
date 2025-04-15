@@ -19,12 +19,16 @@ public class AuthorizationService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		System.out.println("CARREGANDO USUARIO");
 		Optional<Usuario> optUsuario = userService.getUserByEmail(email);
 		
 		if(optUsuario.isEmpty()) {
-			return null;
+			System.out.println("NENHUM USUARIO ENCONTRADO");
+			throw new UsernameNotFoundException("Usuário não encontrado com o e-mail: " + email);
 		}
 		Usuario usuario = optUsuario.get();
+		
+		System.out.println("USUARIO ENCONTRADO: " +usuario.getEmail());
 		
 		UserDetails userDetails = 
 				User.withUsername(usuario.getEmail())

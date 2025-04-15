@@ -5,34 +5,48 @@
   <body>
 
 		<nav th:replace="../components/navBar::navBar"></nav>
-        <div class="container-fluid m-5">
+        <div class="container p-5">
 			
-			<form class="w-50" >
+			<form
+			role="form"
+			method="post"
+			th:action="@{/login/cadastrar-usuario}"
+			th:object="${usuario}">
 							  
 			  <div class="form-group mb-3">
 			    <label for="exampleInputEmail1">Email</label>
 			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" 
-				placeholder="Digite seu email">
+				placeholder="Digite seu email" th:field="*{email}">
 			  </div>
 			  
-			  <div class="form-group mb-3">
-			    <label for="exampleInputPassword1">Senha</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha">
+			  <div class="row form-row">
+				
+				  <div class="form-group mb-3 col-md-6">
+				    <label for="exampleInputPassword1">Senha</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha"
+					th:field="*{senha}">
+				  </div>
+<!--				  <div class="form-group mb-3 col-md-6">
+	  			    <label for="exampleInputPassword1">Confirmação de Senha</label>
+	  			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha">
+	  			  </div>-->
 			  </div>
-			  <div class="form-group mb-3">
-  			    <label for="exampleInputPassword1">Confirmação de Senha</label>
-  			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha">
-  			  </div>
 			  
-			  <div class="form-group mb-3">
-		      <label for="nome">Nome</label>
-		      <input type="text" class="form-control" id="nome" aria-describedby="nome" placeholder="Digite seu nome">
-		    </div>
-			
-			<div class="form-group mb-3">
-		      <label for="sobrenome">Sobrenome</label>
-		      <input type="text" class="form-control" id="sobrenome" aria-describedby="sobrenome" placeholder="Digite seu sobrenome">
-		    </div>
+			  <div class="row form-row">
+				<div class="form-group mb-3 col-md-6">
+			      <label for="nome">Nome</label>
+			      <input type="text" class="form-control" id="nome" aria-describedby="nome" 
+				  placeholder="Digite seu nome"
+				  th:field="*{nome}">
+			    </div>
+				
+				<div class="form-group mb-3 col-md-6">
+			      <label for="sobrenome">Sobrenome</label>
+			      <input type="text" class="form-control" id="sobrenome" aria-describedby="sobrenome" 
+				  placeholder="Digite seu sobrenome"
+				  th:field="*{sobrenome}">
+			    </div>
+			  </div>
 			  
 			  <button type="submit" class="btn btn-primary">Cadastrar</button>
 			</form>

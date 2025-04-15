@@ -4,13 +4,20 @@
 <nav th:fragment="navBar" class="navbar navbar-expand-lg navbar-dark bg-dark position-sticky fixed-top">
 
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="../assets/logo.png" style="display:block; height:40px"/></a>
+    <a class="navbar-brand" href="/login"><img src="../assets/logo.png" style="display:block; height:40px"/></a>
 <!--    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>-->
 	<div>
-		<button type="button" class="btn btn-primary">Login</button>
-		<button type="button" class="btn btn-secondary">Registrar-se</button>
+		
+		<div sec:authorize="!isAuthenticated()" style="color: white;">
+			<a type="button" class="btn btn-primary" href="/login">Login</a>
+			<a type="button" class="btn btn-secondary" href="/login/cadastro-form">Registrar-se</a>
+		</div>
+		<div sec:authorize="isAuthenticated()" style="color: white;">
+			<a type="button" class="btn btn-danger" th:href="@{/logout}">Sair</a>
+		</div>
+		
 	</div>
   </div>
  

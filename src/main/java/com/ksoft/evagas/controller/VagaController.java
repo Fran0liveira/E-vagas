@@ -18,7 +18,7 @@ import com.ksoft.evagas.domain.Vaga;
 import com.ksoft.evagas.service.VagaService;
 
 @Controller
-@RequestMapping("vagas")
+@RequestMapping("/vagas")
 public class VagaController {
 	
 	@Autowired

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class RegisterDto {
+public class RegisterUserDto {
 	
 	@NotBlank
 	private String nome;
@@ -23,5 +23,4 @@ public class RegisterDto {
 	@Pattern(regexp = ".*[A-Z].*", message = "A senha deve conter pelo menos uma letra maiúscula")
 	@Pattern(regexp = ".*[a-z].*", message = "A senha deve conter pelo menos uma letra minúscula")
 	private String senha;
-
 }

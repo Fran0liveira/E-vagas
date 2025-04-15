@@ -17,4 +17,6 @@ public class ApiConfig {
 	private String obterVagas;
 	private String publicarVaga;
 	private String obterUsuario;
+	private String salvarUsuario;
+	private String filtrarUsuario;
 }

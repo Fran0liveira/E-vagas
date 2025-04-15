@@ -23,21 +23,25 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
-				.formLogin(lp-> 
-						lp
-						.loginPage("/login.html")
-						.defaultSuccessUrl("/")
-						.failureUrl("/login-error.html"))
-						.logout(lg-> lg.logoutSuccessUrl("/index.html")
-					)
-				
 				.csrf(csrf -> csrf.disable())
+				.formLogin(lp-> 
+					lp
+					.loginPage("/login")
+					.loginProcessingUrl("/entrar")
+					.usernameParameter("email")
+					.passwordParameter("senha")
+					.defaultSuccessUrl("/vagas", true)
+					.failureUrl("/login?error=true"))
+					.logout(lg-> lg.logoutSuccessUrl("/login")
+					.permitAll()
+				)
 				.authorizeHttpRequests(auth-> 
 					auth
 					.requestMatchers("/assets/**").permitAll()
-					.requestMatchers("/", "/login/**").permitAll()
-					.requestMatchers("/vagas/**").permitAll()
-					.requestMatchers("/vagas/form", "/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
+					.requestMatchers("/login/**").permitAll()
+					.requestMatchers("/vagas").permitAll()
+//					.requestMatchers("/vagas/**").permitAll()
+//					.requestMatchers("/vagas/form", "/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
 					.anyRequest()
 					.authenticated()
 				)
@@ -47,6 +51,11 @@ public class SecurityConfig {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+	    return config.getAuthenticationManager();
 	}
 
 }
