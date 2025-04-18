@@ -13,39 +13,62 @@
 			th:action="@{/login/cadastrar-usuario}"
 			th:object="${usuario}">
 							  
-			  <div class="form-group mb-3">
-			    <label for="exampleInputEmail1">Email</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" 
-				placeholder="Digite seu email" th:field="*{email}">
+			  <div class="card p-4 mb-3">
+				<p class="fw-bold">Dados do Usuário</p>
+				<div class="form-group mb-3">
+							    <label for="exampleInputEmail1">Email</label>
+							    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" 
+								placeholder="Digite seu email" th:field="*{email}">
+							  </div>
+							  
+							  <div class="row form-row">
+								
+								  <div class="form-group mb-3 col-md-6">
+								    <label for="exampleInputPassword1">Senha</label>
+								    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha"
+									th:field="*{senha}">
+								  </div>
+				<!--				  <div class="form-group mb-3 col-md-6">
+					  			    <label for="exampleInputPassword1">Confirmação de Senha</label>
+					  			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha">
+					  			  </div>-->
+							  </div>
+							  
+							  <div class="row form-row">
+								
+								<div class="form-group mb-3 col-md-6">
+							      <label for="nome">Nome</label>
+							      <input type="text" class="form-control" id="nome" aria-describedby="nome" 
+								  placeholder="Digite seu nome"
+								  th:field="*{nome}">
+							    </div>
+								
+								<div class="form-group mb-3 col-md-6">
+							      <label for="sobrenome">Sobrenome</label>
+							      <input type="text" class="form-control" id="sobrenome" aria-describedby="sobrenome" 
+								  placeholder="Digite seu sobrenome"
+								  th:field="*{sobrenome}">
+							    </div>
+							  </div>
 			  </div>
 			  
-			  <div class="row form-row">
-				
-				  <div class="form-group mb-3 col-md-6">
-				    <label for="exampleInputPassword1">Senha</label>
-				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha"
-					th:field="*{senha}">
-				  </div>
-<!--				  <div class="form-group mb-3 col-md-6">
-	  			    <label for="exampleInputPassword1">Confirmação de Senha</label>
-	  			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha">
-	  			  </div>-->
-			  </div>
-			  
-			  <div class="row form-row">
-				<div class="form-group mb-3 col-md-6">
-			      <label for="nome">Nome</label>
-			      <input type="text" class="form-control" id="nome" aria-describedby="nome" 
-				  placeholder="Digite seu nome"
-				  th:field="*{nome}">
-			    </div>
-				
-				<div class="form-group mb-3 col-md-6">
-			      <label for="sobrenome">Sobrenome</label>
-			      <input type="text" class="form-control" id="sobrenome" aria-describedby="sobrenome" 
-				  placeholder="Digite seu sobrenome"
-				  th:field="*{sobrenome}">
-			    </div>
+			  <div class="card p-4 mb-3">
+				<p class="fw-bold">Tipo de Usuário</p>
+				<div class="form-check mb-3">
+							    <input class="form-check-input" type="checkbox" value="" id="chkRecrutador" 
+								th:value="RECRUTADOR" th:field="*{roles}">
+							    <label class="form-check-label" for="chkRecrutador">
+							      Sou Recrutador (Quero encontrar candidatos)
+							    </label>
+							  </div>
+							  
+							  <div class="form-check mb-3">
+				  			    <input class="form-check-input" type="checkbox" value="" id="chkCandidato"
+								th:value="CANDIDATO" th:field="*{roles}">
+				  			    <label class="form-check-label" for="chkCandidato">
+				  			      Sou Candidato (Quero encontrar vagas)
+				  			    </label>
+				  			  </div>
 			  </div>
 			  
 			  <button type="submit" class="btn btn-primary">Cadastrar</button>

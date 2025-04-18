@@ -1,5 +1,7 @@
 package com.ksoft.evagas.domain.user;
 
+import java.util.List;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -23,4 +25,6 @@ public class RegisterUserDto {
 	@Pattern(regexp = ".*[A-Z].*", message = "A senha deve conter pelo menos uma letra maiúscula")
 	@Pattern(regexp = ".*[a-z].*", message = "A senha deve conter pelo menos uma letra minúscula")
 	private String senha;
+	
+	private List<UserRole> roles;
 }

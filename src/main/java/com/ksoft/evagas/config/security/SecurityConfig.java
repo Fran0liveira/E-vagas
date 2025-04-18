@@ -37,11 +37,9 @@ public class SecurityConfig {
 				)
 				.authorizeHttpRequests(auth-> 
 					auth
-					.requestMatchers("/assets/**").permitAll()
-					.requestMatchers("/login/**").permitAll()
-					.requestMatchers("/vagas").permitAll()
-//					.requestMatchers("/vagas/**").permitAll()
-//					.requestMatchers("/vagas/form", "/vagas/publicar").hasRole(UserRole.ADMIN.getRole())
+					.requestMatchers("/login", "/login/**").permitAll()
+					.requestMatchers("/assets", "/assets/**").permitAll()
+					.requestMatchers("/vagas", "/vagas/**").permitAll()
 					.anyRequest()
 					.authenticated()
 				)

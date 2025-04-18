@@ -1,6 +1,8 @@
 package com.ksoft.evagas.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -30,10 +32,14 @@ public class AuthorizationService implements UserDetailsService {
 		
 		System.out.println("USUARIO ENCONTRADO: " +usuario.getEmail());
 		
+		List<String> roles = usuario.getRoles()
+				.stream().map(r-> r.getRole())
+				.collect(Collectors.toList());
+		
 		UserDetails userDetails = 
 				User.withUsername(usuario.getEmail())
 				.password(usuario.getPassword())
-				.roles(usuario.getRole().getRole())
+				.roles(roles.toArray(new String[0]))
 				.build();
 		
 		return userDetails;

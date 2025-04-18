@@ -1,7 +1,9 @@
 package com.ksoft.evagas.domain.user;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,18 +21,26 @@ public class Usuario implements UserDetails {
 	private String email;
 	private String senha;
 	
-	private UserRole role = UserRole.USER;
+	private List<UserRole> roles = new ArrayList<>();
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if(UserRole.ADMIN.equals(role)) {
+		if(roles.contains(UserRole.ADMIN)) {
 			return Arrays.asList(
-					new SimpleGrantedAuthority(UserRole.ADMIN.getRole()),
-					new SimpleGrantedAuthority(UserRole.USER.getRole())
-			);
-		}else {
-			return Arrays.asList(new SimpleGrantedAuthority(UserRole.USER.getRole()));
+					auth(UserRole.ADMIN),
+					auth(UserRole.RECRUTADOR),
+					auth(UserRole.CANDIDATO));
 		}
+		
+		List<GrantedAuthority> list = new ArrayList<>();
+		
+		if(roles.contains(UserRole.RECRUTADOR)){
+			list.add(auth(UserRole.RECRUTADOR));
+		}
+		if(roles.contains(UserRole.CANDIDATO)){
+			list.add(auth(UserRole.CANDIDATO));
+		}
+		return list;
 	}
 	@Override
 	public String getPassword() {
@@ -40,5 +50,8 @@ public class Usuario implements UserDetails {
 	public String getUsername() {
 		return email;
 	}
-
+	
+	private SimpleGrantedAuthority auth(UserRole role) {
+		return new SimpleGrantedAuthority(role.getRole());
+	}
 }
