@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +31,7 @@ public class SecurityConfig {
 					.loginProcessingUrl("/entrar")
 					.usernameParameter("email")
 					.passwordParameter("senha")
-					.defaultSuccessUrl("/vagas", true)
+					.defaultSuccessUrl("/login/success", true)
 					.failureUrl("/login?error=true"))
 					.logout(lg-> lg.logoutSuccessUrl("/login")
 					.permitAll()
@@ -40,6 +41,8 @@ public class SecurityConfig {
 					.requestMatchers("/login", "/login/**").permitAll()
 					.requestMatchers("/assets", "/assets/**").permitAll()
 					.requestMatchers("/vagas", "/vagas/**").permitAll()
+					.requestMatchers("/recrutador", "/recrutador/**")
+						.hasAuthority(UserRole.RECRUTADOR.getRole())
 					.anyRequest()
 					.authenticated()
 				)

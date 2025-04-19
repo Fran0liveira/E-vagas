@@ -46,7 +46,7 @@ public class VagaController {
 			mv.addFlashAttribute("statusVaga", "ERROR");
 		}
 		
-		return "redirect:/vagas";
+		return "redirect:/recrutador";
 	}
 	
 	@GetMapping("form")

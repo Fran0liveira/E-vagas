@@ -1,5 +1,8 @@
 package com.ksoft.evagas.controller;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.ksoft.evagas.domain.Vaga;
 import com.ksoft.evagas.domain.user.RegisterUserDto;
+import com.ksoft.evagas.domain.user.UserRole;
 import com.ksoft.evagas.domain.user.Usuario;
 import com.ksoft.evagas.service.UserService;
 
@@ -39,7 +43,6 @@ public class LoginController {
         }
  
         return new ModelAndView("redirect:/");
-		
 	}
 	
 	private ModelAndView loadLoginPage(boolean error) {
@@ -59,7 +62,7 @@ public class LoginController {
 		System.out.println(new Gson().toJson(registerUser));
 	
 		userService.cadastrarUsuario(registerUser);
-		return "index";
+		return "login";
 	}
 	
 	@GetMapping("/cadastro-form")
@@ -67,5 +70,23 @@ public class LoginController {
 		RegisterUserDto registro = new RegisterUserDto();
 		model.addAttribute("usuario", registro);
 		return "cadastro-usuario";
+	}
+	
+	@GetMapping("/success")
+	public ModelAndView loginSuccess() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Collection<String> authorities = authentication.getAuthorities()
+        		.stream()
+        		.map(a->a.getAuthority())
+        		.collect(Collectors.toList());
+		
+		System.out.println("auth: " +authorities);
+        
+        
+        if(authorities.contains(UserRole.RECRUTADOR.getRole())) {
+        	return new ModelAndView("redirect:/recrutador");
+        }else {
+        	return new ModelAndView("redirect:/vagas");
+        }
 	}
 }

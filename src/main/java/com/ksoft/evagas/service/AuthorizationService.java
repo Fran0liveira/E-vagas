@@ -30,16 +30,16 @@ public class AuthorizationService implements UserDetailsService {
 		}
 		Usuario usuario = optUsuario.get();
 		
-		System.out.println("USUARIO ENCONTRADO: " +usuario.getEmail());
+//		System.out.println("USUARIO ENCONTRADO: " +usuario.getEmail());
 		
-		List<String> roles = usuario.getRoles()
-				.stream().map(r-> r.getRole())
-				.collect(Collectors.toList());
+//		List<String> roles = usuario.getRoles()
+//				.stream().map(r-> r.getRole())
+//				.collect(Collectors.toList());
 		
 		UserDetails userDetails = 
 				User.withUsername(usuario.getEmail())
 				.password(usuario.getPassword())
-				.roles(roles.toArray(new String[0]))
+				.authorities(usuario.getAuthorities())
 				.build();
 		
 		return userDetails;
